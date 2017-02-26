@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="row center">
+          <button onclick="clickMeal()" type="button" class="btn btn-primary">Meals</button>
+          <p id="meal"></p>
+        </div>
+        <div class="row center">
+          <button onclick="getUrl()" type="button" class="btn btn-warning red">URL</button>
+          <p id="url"></p>
+        </div>
+        <div class="row center">
+          <button onclick="getAttr()" type="button" class="btn btn-warning blue">Attribute</button>
+          <p id="attr" style="color:blue"></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+          function clickMeal(){
+            $.ajax({
+              type: 'GET',
+              url: 'http://localhost:3000/meal',
+              success: function(data) {
+                let random = Math.floor(Math.random() * data.length);
+                sessionStorage.setItem('meals',data[random])
+                document.querySelector('#meal').innerHTML =  'Meal : ' + data[random]
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+          }
+
+          function getUrl(){
+            var url = window.location.href;
+            $('#url').html(url)
+          }
+
+          function getAttr(){
+            var x = $('#attr').attr('style')
+            $('#attr').html(x)
+          }
+
+
+    </script>
+  </body>
+</html>
